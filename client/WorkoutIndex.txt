@@ -1,0 +1,36 @@
+import React, {useState, useState, useEffect} from 'react'
+import {Container, Col, Row} from 'reactstrap'
+
+const Workout = (props) => {
+    const [workout, setWorkout] = useState('')
+    
+    const fetchWorkouts = () => {
+        fetch('http://localhost:4000/api/log', {
+            method: 'GET',
+            headers: new Headers ({
+                'Content-Type': 'aplication/json',
+                'Authorization': props.token
+            })
+        }).then(res => res.json())
+        .then(logData => {setWorkouts(logData); console.log(logData)})
+    }
+
+    useEffect(() => {
+        fetchWorkouts()
+    }, [])
+
+    return (
+        <Container>
+            <Row>
+                <Col md="3">
+                    {/* the create will go here */}
+                </Col>
+                <Col md="9">
+                    <h2>Log a workout to see a table. This will be added later</h2>
+                </Col>
+            </Row>
+        </Container>
+    )
+}
+
+export default Workout
